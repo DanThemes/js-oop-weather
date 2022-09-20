@@ -40,4 +40,5 @@ const weather = new Weather();
 const coordsArray = weather.getCoordsFromName('Arad');
 
 const searchEl = document.getElementById('search');
+
 searchEl.addEventListener('keyup', e => weather.autocomplete(e.target.value));
