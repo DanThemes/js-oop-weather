@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "moment": "^2.29.4"
+  },
+  "name": "js-oop-weather",
+  "description": "JS OOP weather app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanThemes/js-oop-weather.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanThemes/js-oop-weather/issues"
+  },
+  "homepage": "https://github.com/DanThemes/js-oop-weather#readme"
+}

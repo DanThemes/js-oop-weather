@@ -1,3 +1,5 @@
+import moment from './node_modules/moment/dist/moment.js';
+
 class Weather {
     async fetchCities() {
         const response = await fetch('./cities.json')
@@ -11,10 +13,25 @@ class Weather {
 
         const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m`);
 
-        const data = await response.json();
+        const { hourly, hourly_units } = await response.json();
+        
+        console.log(hourly, hourly_units);
 
-        console.log(data);
+        this.generateChart(hourly, hourly_units);
+
+        return [hourly, hourly_units];
+
+        // for (const prop in hourly) {
+        //     console.log(hourly[prop]);
+        //     hourly[prop].map(item => {
+        //         const itemEl = document.createElement('p');
+        //         itemEl.textContent = item;
+        //         tempsEl.appendChild(itemEl);
+        //     })
+        // }
     }
+
+
 
     // Add BFS alogrithm here instead
     async getCoordsFromName(cityName = 'Arad') {
@@ -104,6 +121,58 @@ class Weather {
         }, 3000)
     }
 
+    async generateChart(hourly, hourly_units) {
+        const tempsEl = document.querySelector('#temps');
+
+        const formattedTimes = await hourly.time.map(time => {
+            return moment.utc(time).calendar()
+        })
+
+        const config = {
+            type: 'line',
+            data: {
+                labels: formattedTimes,
+                datasets: [{
+                    data: await hourly.temperature_2m,
+                    borderColor: [],
+                    backgroundColor: [],
+                    tension: 0.5
+                }]
+              },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero:false
+                    }
+                },
+                plugins: {
+                    legend: {
+                      display: false,
+                    },
+                    title: {
+                      display: false,
+                    },
+                  }
+            },
+        };
+        
+        // Destroy the existing chart, if there is one defined
+        let chartStatus = Chart.getChart("tempsChart");
+        if (chartStatus != undefined) {
+            chartStatus.destroy();
+        }
+        
+        const ctx = document.getElementById('tempsChart').getContext('2d');
+        const tempsChart = new Chart(ctx, config);
+
+        // hourly.temperature_2m.map(item => {
+        //     const itemEl = document.createElement('p');
+        //     itemEl.textContent = item;
+        //     tempsEl.appendChild(itemEl);
+        // });
+    }
 
 }
 
@@ -114,3 +183,8 @@ const coordsArray = weather.getCoordsFromName('Arad');
 const searchEl = document.getElementById('search');
 
 searchEl.addEventListener('keyup', e => weather.autocomplete(e.target.value));
+
+
+console.log(moment("2022-09-20T00:00", "YYYY-MM-DDTmm:ss").calendar())
+console.log(moment("2022-09-20T01:00", "YYYY-MM-DDTm:ss").calendar())
+console.log(moment.utc("2022-09-20T01:00").calendar())
