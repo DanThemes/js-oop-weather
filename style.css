@@ -1,0 +1,37 @@
+#autocomplete {
+    max-height: 20rem;
+    overflow-y: scroll;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+#autocomplete.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#autocomplete li:first-child {
+    margin-top: 0.5rem;
+}
+#autocomplete li:last-child {
+    margin-bottom: 0.5rem;
+}
+
+#autocomplete li {
+    list-style: none;
+    padding: 0.2rem 1.5rem;
+    background: #fff;
+    cursor: pointer;
+    border-left:1px solid rgba(209, 213, 219, 1);
+    border-right:1px solid rgba(209, 213, 219, 1);
+}
+#autocomplete li:nth-child(odd) {
+    background: rgba(209, 213, 219, 1);
+}
+
+#autocomplete li:hover {
+    background: rgb(83 116 167);
+    color: #fff;
+}
