@@ -19,7 +19,8 @@ class Weather {
         }
     }
 
-    async autocomplete(value) {
+    // Return an array of cities
+    async searchCities(value) {
         const cities = await this.fetchCities();
         
         const result = [];
@@ -28,8 +29,35 @@ class Weather {
                 result.push(cities[i].name);
             }
         }
-        console.log(result);
         return result;
+    }
+
+    // Display the autocomplete names in the drop-down
+    async autocomplete(value) {
+        const autocompleteEl = document.getElementById('autocomplete');
+        autocompleteEl.textContent = '';
+
+        // Value should be at least 1 character
+        if (value.trim().length === 0) {
+            this.showError('Enter at least 1 character.')
+            return;
+        }
+
+        const cities = await this.searchCities(value);
+
+        cities.map(city => {
+            const cityEl = document.createElement('li');
+            cityEl.textContent = city;
+            autocompleteEl.appendChild(cityEl);
+        })
+    }
+
+    showError(message) {
+        const error = document.getElementById('error');
+        error.innerHTML = message;
+        setTimeout(() => {
+            error.innerHTML = '';
+        }, 3000)
     }
 
 
