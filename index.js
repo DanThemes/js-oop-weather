@@ -20,15 +20,6 @@ class Weather {
         this.generateChart(hourly, hourly_units);
 
         return [hourly, hourly_units];
-
-        // for (const prop in hourly) {
-        //     console.log(hourly[prop]);
-        //     hourly[prop].map(item => {
-        //         const itemEl = document.createElement('p');
-        //         itemEl.textContent = item;
-        //         tempsEl.appendChild(itemEl);
-        //     })
-        // }
     }
 
 

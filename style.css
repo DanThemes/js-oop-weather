@@ -12,13 +12,6 @@
     visibility: visible;
 }
 
-#autocomplete li:first-child {
-    margin-top: 0.5rem;
-}
-#autocomplete li:last-child {
-    margin-bottom: 0.5rem;
-}
-
 #autocomplete li {
     list-style: none;
     padding: 0.2rem 1.5rem;
